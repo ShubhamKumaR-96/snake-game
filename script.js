@@ -5,26 +5,36 @@ document.addEventListener('DOMContentLoaded', function (){
     const sellSize=20;
     let score=0;  // score the game
     let gameStarted=false // Game status
-    let food={x:300,y:300} // cell coordinate -> pixels
+    let food={x:300,y:200} // cell coordinate -> pixels
     let snake=[{x:160,y:200},{x:140,y:200},{x:120,y:200}]
 
 
     function drawDiv(x,y,className){
         const divElement=document.createElement('div')
+        divElement.classList.add(className)
+        divElement.style.top=`${y}px`;
+        divElement.style.left=`${x}px`;
+        return divElement;
 
     }
 
     function drawFoodAndSnake(){
-        gameArena.innerHTML=''
+        gameArena.innerHTML='';
+
+        snake.forEach((snakeCell)=>{
+            const snakeElement=drawDiv(snakeCell.x,snakeCell.y,'snake')
+            gameArena.appendChild(snakeElement)
+        })
 
         const foodElement=drawDiv(food.x,food.y, 'food')
+        gameArena.appendChild(foodElement)
     }
 
 
     function runGame(){
         if(!gameStarted){
             gameStarted=true
-
+         drawFoodAndSnake()
         }
     }
 
